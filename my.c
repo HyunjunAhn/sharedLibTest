@@ -2,6 +2,7 @@
 #include <semaphore.h>
 #include <pthread.h>
 #include <unistd.h>
+#include "sum.h"
 
 void *thFunc(void *arg)
 {
@@ -30,10 +31,10 @@ void testLib()
     for(;;)
     {
         sem_wait(&sem[0]);
-        printf("[%3d] A\n", cnt);
+        printf("[%3d] %d\n", cnt, sum(1, 2));
         sem_post(&sem[1]);
         sem_wait(&sem[2]);
-        printf("[%3d] B\n", cnt);
+        printf("[%3d] %d\n", cnt, sum(3, 4));
         cnt++;
     }
 }

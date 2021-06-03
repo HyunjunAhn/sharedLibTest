@@ -1,15 +1,18 @@
 CC=gcc
 CFLAGS=-Wall -g
-BINS=test libmy.so
+BINS=test my.so
 all: $(BINS)
 
-libmy.o: my.c my.h
-	$(CC) $(CFLAGS) -c my.c -o libmy.o -lpthread
+#my.o: my.c my.h
+#	$(CC) $(CFLAGS) -c my.c -o my.o -lpthread
+#
+#sum.o: sum.c sum.h
+#	$(CC) $(CFLAGS) -c sum.c -o sum.o
 
-libmy.so: my.c my.h
-	$(CC) $(CFLAGS) -fPIC -shared -o $@ my.c -lpthread
+my.so: my.c sum.c
+	$(CC) $(CFLAGS) -fPIC -shared -o $@ my.c sum.c -lpthread
 	
-test: test.c libmy.o
+test: test.c my.so
 	$(CC) $(CFLAGS) -o $@ $^ -lpthread
 
 clean:
